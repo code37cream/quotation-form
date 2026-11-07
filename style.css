@@ -250,16 +250,13 @@
         margin-left: auto;
         margin-top: 20mm;
         text-align: center;
-        font-size: 0.9em;
+        font-size: 1.07em;
     }
     .signature-closing {
         margin: 0 0 40px;
         white-space: nowrap;
     }
-    .signature-box p { margin: 4px 0; 
-    font-family: var(--document-font-family);
-    font-size: var(--document-font-size);             
-    }
+    .signature-box p { margin: 4px 0; }
     .signature-line {
         width: 82%;
         margin: 0 auto 6px;
