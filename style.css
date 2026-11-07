@@ -1,0 +1,426 @@
+
+    :root {
+        --ink: #263445;
+        --muted: #64748b;
+        --line: #cbd5e1;
+        --accent: #2563eb;
+        --accent-soft: #eff6ff;
+        --paper-margin: 20mm;
+        --document-font-size: 16px;
+        --document-font-family: "Sarabun", "Leelawadee UI", Arial, sans-serif;
+        font-family: "Sarabun", "Leelawadee UI", Arial, sans-serif;
+        color: var(--ink);
+        background: #f1f5f9;
+    }
+
+    * { box-sizing: border-box; }
+    body { margin: 0; padding: 24px; }
+
+    /* แผงควบคุม */
+    .control-panel {
+        max-width: 792px;
+        margin: 0 auto 18px;
+        padding: 18px 20px;
+        background: white;
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        box-shadow: 0 4px 16px #0f172a0a;
+    }
+    .control-panel h2 { margin: 0 0 16px; font-size: 18px; }
+    .control-group { display: flex; align-items: center; gap: 12px; margin: 10px 0; }
+    .control-group label { min-width: 190px; font-weight: 600; }
+    .control-group select { min-width: 230px; }
+    .control-group input[type="range"] { width: 220px; }
+    .help-text { color: var(--muted); font-size: 13px; }
+    select, input { font: inherit; }
+    select { padding: 7px 10px; border: 1px solid var(--line); border-radius: 5px; }
+
+    /* แบนเนอร์ */
+    .banner-area { width: 100%; margin: 0 0 12px; }
+    .banner-frame {
+        width: 100%;
+        min-height: 56px;
+        padding: 6px;
+        border: 1px dashed #94a3b8;
+        display: grid;
+        place-items: center;
+    }
+    .quotation-banner {
+        display: block;
+        width: 100%;
+        height: auto;
+        max-height: 50mm;
+        object-fit: contain;
+        object-position: left center;
+    }
+    .quotation-banner[hidden] { display: none; }
+    .banner-upload {
+        display: inline-block;
+        margin-bottom: 8px;
+        padding: 8px 13px;
+        border-radius: 5px;
+        background: var(--accent-soft);
+        color: var(--accent);
+        font-weight: 600;
+        cursor: pointer;
+    }
+    .banner-placeholder {
+        min-height: 44px;
+        display: grid;
+        place-items: center;
+        color: var(--muted);
+        font-size: 13px;
+    }
+
+    /* หน้ากระดาษและส่วนหัว */
+    .paper {
+        font-family: var(--document-font-family);
+        font-size: var(--document-font-size);
+        width: 210mm;
+        min-height: 297mm;
+        margin: auto;
+        padding: var(--paper-margin);
+        background: white;
+        box-shadow: 0 8px 30px #0f172a18;
+    }
+    .header { display: flex; justify-content: space-between; gap: 24px; align-items: flex-start; }
+    .company-info { flex: 1; }
+    .company-info h3 { margin: 0 0 8px; font-size: 1.35em; }
+    .company-info p, .doc-title p { margin: 4px 0; }
+    .doc-title { min-width: 230px; text-align: right; }
+    .doc-title h1 { margin: 0 0 12px; color: #1e3a8a; font-size: 1.85em; }
+    .quotation-rule {
+        height: 26px;
+        margin: 10px 0 16px;
+        border: 1px solid #6878c7;
+        color: #172b8c;
+        font-size: 11px;
+        font-weight: 700;
+        line-height: 24px;
+        text-align: center;
+    }
+    .client-info { margin: 16px 0 10px; line-height: 1.7; }
+    .client-info p { margin: 4px 0; }
+    .doc-meta-row { display: flex; justify-content: space-between; gap: 16px; }
+    .doc-meta-row p { margin: 0 0 8px; }
+    .intro { margin: 16px 0 12px 22px; }
+
+    /* ตารางสินค้า */
+    .table-scroll { overflow-x: auto; }
+    .resizable-table {
+        width: 100%;
+        border-collapse: collapse;
+        table-layout: fixed;
+    }
+    .resizable-table th,
+    .resizable-table td {
+        border: 0;
+        padding: 5px 4px;
+        vertical-align: top;
+    }
+    .resizable-table th {
+        position: relative;
+        background: white;
+        border-bottom: 1px solid #64748b;
+
+        font-size: calc(var(--document-font-size) * 0.68);
+        line-height: 1.2;
+    }
+    .resizable-table th:not(:last-child)::after {
+        position: absolute;
+        top: 0;
+        right: -3px;
+        width: 7px;
+        height: 100%;
+        content: "";
+        cursor: col-resize;
+    }
+    .resizable-table td {
+        font-size: calc(var(--document-font-size) * 0.68);
+        line-height: 1.25;
+    }
+    .resizable-table input { font: inherit; }
+    .resizable-table input {
+        width: 100%;
+        min-width: 0;
+        padding: 2px 0;
+        border: 0;
+        border-radius: 0;
+        background: transparent;
+        text-align: right;
+    }
+    .resizable-table td[data-key="qty"],
+    .resizable-table td[data-key="price"],
+    .resizable-table td[data-key="fee"],
+    .resizable-table td[data-key="unit-price"],
+    .resizable-table td[data-key="vat-unit-price"] {
+        white-space: nowrap;
+    }
+    .resizable-table td[data-key="qty"] input,
+    .resizable-table td[data-key="price"] input,
+    .resizable-table td[data-key="fee"] input { text-align: right; }
+
+    .th-label {
+        min-height: 20px;
+        padding-right: 13px;
+        outline: none;
+        cursor: text;
+        white-space: normal;
+    }
+    .th-label:focus {
+        background: #eff6ff;
+        outline: 1px dashed #2563eb;
+    }
+    .delete-column {
+        position: absolute;
+        top: 2px;
+        right: 2px;
+        z-index: 2;
+        width: 18px;
+        height: 18px;
+        padding: 0;
+        border: 0;
+        border-radius: 4px;
+        background: #fee2e2;
+        color: #dc2626;
+        font-size: 15px;
+        line-height: 18px;
+        cursor: pointer;
+    }
+    .delete-column:hover { background: #dc2626; color: white; }
+
+    .action-column {
+        width: 64px;
+        text-align: center !important;
+    }
+    .btn-add-row, .btn-delete, .btn-print {
+        border: 0;
+        border-radius: 6px;
+        padding: 9px 16px;
+        font: inherit;
+        font-weight: 600;
+        cursor: pointer;
+    }
+    .btn-add-row { margin-top: 12px; background: var(--accent-soft); color: var(--accent); }
+    .btn-delete { padding: 5px 8px; background: #fee2e2; color: #b91c1c; }
+    .btn-print { margin-top: 8px; background: var(--accent); color: white; }
+
+    /* หมายเหตุและลายเซ็น */
+    .bottom-area {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        gap: 18mm;
+        margin-top: 48px;
+        break-inside: avoid;
+        page-break-inside: avoid;
+    }
+    .quotation-notes {
+        flex: 1;
+        min-width: 45%;
+        line-height: 1.6;
+    }
+    .note-content {
+        width: 100%;
+        height: 28mm;
+        min-width: 25mm;
+        min-height: 12mm;
+        max-width: 100%;
+        max-height: 100mm;
+        margin-top: 4px;
+        padding: 3mm;
+        overflow: auto;
+        resize: both;
+        white-space: pre-wrap;
+    }
+    .note-content:empty::before {
+        content: attr(data-placeholder);
+        color: #94a3b8;
+    }
+
+    /* ลายเซ็นอยู่ด้านล่างขวา */
+    .signature-box {
+        position: static;
+        flex: 0 0 42mm;
+        width: 42mm;
+        margin-left: auto;
+        margin-top: 20mm;
+        text-align: center;
+        font-size: 0.9em;
+    }
+    .signature-closing {
+        margin: 0 0 40px;
+        white-space: nowrap;
+    }
+    .signature-box p { margin: 4px 0; }
+    .signature-line {
+        width: 82%;
+        margin: 0 auto 6px;
+        border-top: 1px solid #334155;
+    }
+
+    /* หน้าจอเล็กและการพิมพ์ */
+    @media (max-width: 850px) {
+        body { padding: 10px; }
+        .paper { width: 100%; min-height: 0; }
+        .header { flex-direction: column; }
+        .quotation-banner { max-height: 40mm; }
+        .doc-title { width: 100%; text-align: right; }
+
+        .bottom-area {
+            flex-direction: column;
+            align-items: stretch;
+            gap: 18px;
+        }
+
+        .quotation-notes { min-width: 100%; }
+
+        .signature-box {
+            width: 42mm;
+            align-self: flex-end;
+            margin-left: auto;
+            margin-top: 10mm;
+        }
+
+        .control-group {
+            align-items: flex-start;
+            flex-direction: column;
+            gap: 5px;
+        }
+    }
+
+    @page { size: A4 portrait; margin: 20mm; }
+
+    @media print {
+        :root { background: white; }
+        body { padding: 0; background: white; }
+        .no-print { display: none !important; }
+
+        .paper {
+            width: 100%;
+            min-height: 0;
+            margin: 0;
+            padding: 0;
+            box-shadow: none;
+        }
+
+        .banner-upload, .banner-placeholder {
+            display: none !important;
+        }
+        .banner-frame {
+            display: grid;
+            border: 0;
+        }
+        .quotation-banner { max-height: 45mm; }
+
+        .resizable-table {
+            width: 100%;
+            table-layout: fixed;
+        }
+        .resizable-table tr {
+            break-inside: avoid;
+            page-break-inside: avoid;
+        }
+        .resizable-table thead { display: table-header-group; }
+
+        * {
+            print-color-adjust: exact;
+            -webkit-print-color-adjust: exact;
+        }
+
+        .note-content:empty::before { content: ""; }
+        .note-content {
+            resize: none;
+            overflow: visible;
+        }
+
+        .resizable-table th:not(.action-column)::after {
+            display: none;
+        }
+
+        .resizable-table input {
+            border: 0;
+            padding: 0;
+            appearance: textfield;
+        }
+
+        .resizable-table input::-webkit-inner-spin-button,
+        .resizable-table input::-webkit-outer-spin-button {
+            appearance: none;
+            margin: 0;
+        }
+
+        /* ตำแหน่งลายเซ็นด้านล่างขวาขณะพิมพ์ */
+        .bottom-area {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            flex-direction: row;
+            gap: 18mm;
+            break-inside: avoid;
+            page-break-inside: avoid;
+        }
+
+        .quotation-notes {
+            flex: 1;
+            min-width: 45%;
+        }
+
+        .signature-box {
+            flex: 0 0 42mm;
+            width: 42mm;
+            margin-left: auto;
+            margin-top: 20mm;
+            align-self: flex-end;
+            text-align: center;
+        }
+    }
+
+    /* ปรับตำแหน่งลายเซ็นได้ */
+    .signature-box {
+        position: relative;
+        flex: 0 0 42mm;
+        width: 42mm;
+        margin-left: auto;
+        text-align: center;
+        font-size: 0.9em;
+        cursor: grab;
+        touch-action: none;
+        z-index: 5;
+    }
+
+    .signature-box.dragging {
+        cursor: grabbing;
+        user-select: none;
+    }
+
+    .signature-box.drag-position {
+        position: relative;
+    }
+
+    /* ปุ่มควบคุมตำแหน่ง */
+    .signature-controls {
+      display: flex;
+        gap: 6px;
+        margin-top: 8px;
+        justify-content: flex-end;
+    }
+
+    .signature-controls button {
+        padding: 5px 9px;
+        border: 1px solid #cbd5e1;
+        border-radius: 5px;
+        background: #eff6ff;
+        color: #2563eb;
+        cursor: pointer;
+    }
+
+    @media print {
+        .signature-controls {
+            display: none !important;
+        }
+
+        .signature-box {
+            cursor: default;
+        }
+    }

@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ปรับใบเสนอราคา</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- แผงควบคุม -->
+    <section class="control-panel no-print" aria-label="ตั้งค่าการพิมพ์">
+        <h2>ตั้งค่าหน้ากระดาษและตาราง</h2>
+
+        <div class="control-group">
+            <label for="pageSize">ขนาดกระดาษ:</label>
+            <select id="pageSize">
+                <option value="A4">A4 (210 × 297 มม.)</option>
+            </select>
+        </div>
+
+        <div class="control-group">
+            <label for="pageMargin">ระยะขอบกระดาษ:</label>
+            <input type="range" id="pageMargin" min="10" max="30" value="20">
+            <span id="marginVal">20 มม.</span>
+        </div>
+
+        <div class="control-group">
+            <label for="fontFamily">รูปแบบตัวอักษร:</label>
+            <select id="fontFamily">
+                <option value="Sarabun, 'Leelawadee UI', Arial, sans-serif">Sarabun</option>
+                <option value="Arial, sans-serif">Arial</option>
+                <option value="Tahoma, sans-serif">Tahoma</option>
+                <option value="'Leelawadee UI', Tahoma, sans-serif">Leelawadee UI</option>
+            </select>
+        </div>
+
+        <div class="control-group">
+            <label for="fontSize">ขนาดตัวอักษร:</label>
+            <input type="range" id="fontSize" min="10" max="20" value="16">
+            <span id="fontSizeVal">16 px</span>
+        </div>
+
+        <p class="help-text">
+            คลิกข้อความเพื่อแก้ไข คลิกปุ่ม × ที่หัวตารางเพื่อลบคอลัมน์
+            ลากขอบหัวตารางเพื่อปรับความกว้าง และลากมุมกรอบหมายเหตุเพื่อปรับขนาด
+        </p>
+
+        <button type="button" class="btn-print" onclick="window.print()">
+            🖨️ พิมพ์ใบเสนอราคา / บันทึก PDF
+        </button>
+    </section>
+
+    <!-- เอกสารใบเสนอราคา -->
+    <main class="paper" id="quotationPage">
+
+        <header class="banner-area">
+            <label class="banner-upload no-print" for="bannerFile">เลือกรูปแบนเนอร์</label>
+            <input class="no-print" type="file" id="bannerFile" accept="image/*" hidden>
+
+            <div class="banner-frame">
+                <img id="quotationBanner" class="quotation-banner" alt="แบนเนอร์ใบเสนอราคา" hidden>
+                <div id="bannerPlaceholder" class="banner-placeholder">
+                    ยังไม่ได้เลือกรูปแบนเนอร์
+                </div>
+            </div>
+        </header>
+
+        <div class="quotation-rule" aria-label="QUOTATION">QUOTATION</div>
+
+        <section class="client-info">
+            <div class="doc-meta-row">
+                <p>
+                    <strong>ใบเสนอราคาเลขที่:</strong>
+                    <span id="quotationNumber" contenteditable="true"></span>
+                </p>
+                <p>
+                    <strong>วันที่:</strong>
+                    <span id="quotationDate" contenteditable="true"></span>
+                </p>
+            </div>
+
+            <p>
+                <strong>ลูกค้า:</strong>
+                <span contenteditable="true">บริษัท ตัวอย่าง จำกัด</span>
+                <span contenteditable="true">(20113)</span>
+            </p>
+
+            <p>
+                <strong>เรียน:</strong>
+                <span id="quotationAttn" contenteditable="true">ผู้จัดการฝ่ายจัดซื้อ</span>
+            </p>
+        </section>
+
+        <p class="intro">
+            บริษัทฯ มีความยินดีเสนอราคาผลิตภัณฑ์ตามรายละเอียดดังต่อไปนี้
+        </p>
+
+        <div class="table-scroll">
+            <table class="resizable-table" id="itemTable">
+                <thead>
+                    <tr>
+                        <th data-key="code" style="width: 13%">
+                            <div class="th-label" contenteditable="true">สินค้า</div>
+                            <button type="button" class="delete-column no-print" aria-label="ลบคอลัมน์สินค้า">×</button>
+                        </th>
+
+                        <th data-key="description" style="width: 16%">
+                            <div class="th-label" contenteditable="true">รายละเอียด</div>
+                            <button type="button" class="delete-column no-print" aria-label="ลบคอลัมน์รายละเอียด">×</button>
+                        </th>
+
+                        <th data-key="qty" style="width: 14%">
+                            <div class="th-label" contenteditable="true">น้ำหนักต่อครั้ง<br>(กก.)</div>
+                            <button type="button" class="delete-column no-print" aria-label="ลบคอลัมน์น้ำหนัก">×</button>
+                        </th>
+
+                        <th data-key="price" style="width: 14%">
+                            <div class="th-label" contenteditable="true">ราคาเม็ด<br>พลาสติก</div>
+                            <button type="button" class="delete-column no-print" aria-label="ลบคอลัมน์ราคาเม็ดพลาสติก">×</button>
+                        </th>
+
+                        <th data-key="fee" style="width: 14%">
+                            <div class="th-label" contenteditable="true">ค่าผลิตและ<br>ค่าแม่สี</div>
+                            <button type="button" class="delete-column no-print" aria-label="ลบคอลัมน์ค่าผลิต">×</button>
+                        </th>
+
+                        <th data-key="unit-price" style="width: 14%">
+                            <div class="th-label" contenteditable="true">ราคา<br>(บาท/กก.)</div>
+                            <button type="button" class="delete-column no-print" aria-label="ลบคอลัมน์ราคา">×</button>
+                        </th>
+
+                        <th data-key="vat-unit-price" style="width: 15%">
+                            <div class="th-label" contenteditable="true">รวม VAT<br>(บาท/กก.)</div>
+                            <button type="button" class="delete-column no-print" aria-label="ลบคอลัมน์รวม VAT">×</button>
+                        </th>
+
+
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+
+                        <td data-key="code" contenteditable="true" class="code">
+                            CP8Y211E
+                        </td>
+
+                        <td data-key="description" contenteditable="true" class="description">
+                            CP8Y211E [TGR]
+                        </td>
+
+                        <td data-key="qty">
+                            <input type="number" value="100" min="0" step="any" class="qty" aria-label="น้ำหนักต่อครั้ง">
+                        </td>
+
+                        <td data-key="price">
+                            <input type="number" value="92.75" min="0" step="any" class="price" aria-label="ราคาเม็ดพลาสติก">
+                        </td>
+
+                        <td data-key="fee">
+                            <input type="number" value="12.32" min="0" step="any" class="fee" aria-label="ค่าผลิตและค่าแม่สี">
+                        </td>
+
+                        <td data-key="unit-price">
+                            <input type="number" value="12.32" min="0" step="any" class="unit-price" aria-label="ค่าผลิตและค่าแม่สี">
+                        </td>
+
+                        <td data-key="vat-unit-price">
+                            <input type="number" value="12.32" min="0" step="any" class="vat-unit-price" aria-label="ค่าผลิตและค่าแม่สี">
+                        </td>
+
+
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <button type="button" class="btn-add-row no-print" id="addRow">
+            + เพิ่มรายการสินค้า
+        </button>
+
+        <!-- หมายเหตุและลายเซ็น -->
+        <section class="bottom-area" aria-label="หมายเหตุและลายมือชื่อ">
+
+            <div class="quotation-notes">
+                <strong>หมายเหตุ:</strong>
+
+                <div id="quotationNote"
+                     class="note-content"
+                     contenteditable="true"
+                     aria-label="ข้อความหมายเหตุ"
+                     data-placeholder="พิมพ์หมายเหตุที่นี่"></div>
+            </div>
+
+            <!-- ลายเซ็นด้านล่างขวา -->
+            <div class="signature-box">
+              <div class="signature-controls no-print">
+                  <button type="" id="resetSignature"><img src="https://img.icons8.com/?size=100&id=78763&format=png&color=000000" style=" height: 16px;"></button>
+              </div>
+                <p class="signature-closing">ขอแสดงความนับถืออย่างสูง</p>
+
+                <div class="signature-line"></div>
+
+                <p contenteditable="true">
+                    <strong> ชื่อพนักงานขาย</strong>
+                </p>
+
+                <p contenteditable="true">Sales Manager</p>
+            </div>
+
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
