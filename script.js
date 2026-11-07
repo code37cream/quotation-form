@@ -195,24 +195,33 @@
         });
     }
 
-    /* เปลี่ยนฟอนต์ */
-    document.querySelector('#fontFamily').addEventListener('change', (event) => {
-        document.documentElement.style.setProperty(
-            '--document-font-family',
-            event.target.value
-        );
-    });
+          /* เปลี่ยนรูปแบบตัวอักษรเฉพาะตารางสินค้า */
+        document.querySelector('#fontFamily').addEventListener('change', (event) => {
+            const itemTable = document.querySelector('#itemTable');
 
-    /* เปลี่ยนขนาดตัวอักษร */
-    document.querySelector('#fontSize').addEventListener('input', (event) => {
-        document.documentElement.style.setProperty(
-            '--document-font-size',
-            `${event.target.value}px`
-        );
+            if (itemTable) {
+                itemTable.style.setProperty(
+                    '--table-font-family',
+                    event.target.value
+                );
+            }
+        });
 
-        document.querySelector('#fontSizeVal').textContent =
-            `${event.target.value} px`;
-    });
+        /* เปลี่ยนขนาดตัวอักษรเฉพาะตารางสินค้า */
+        document.querySelector('#fontSize').addEventListener('input', (event) => {
+            const itemTable = document.querySelector('#itemTable');
+
+            if (itemTable) {
+                itemTable.style.setProperty(
+                    '--table-font-size',
+                    `${event.target.value}px`
+                );
+            }
+
+            document.querySelector('#fontSizeVal').textContent =
+                `${event.target.value} px`;
+        });
+
 
     /* เปลี่ยนขนาดกระดาษและระยะขอบ */
     const printSettings = document.createElement('style');
@@ -357,6 +366,7 @@
       });
 
   });
+
 
 
     /* เริ่มต้นระบบ */
