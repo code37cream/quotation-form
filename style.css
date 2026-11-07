@@ -256,7 +256,10 @@
         margin: 0 0 40px;
         white-space: nowrap;
     }
-    .signature-box p { margin: 4px 0; }
+    .signature-box p { margin: 4px 0; 
+    font-family: var(--document-font-family);
+    font-size: var(--document-font-size);             
+    }
     .signature-line {
         width: 82%;
         margin: 0 auto 6px;
