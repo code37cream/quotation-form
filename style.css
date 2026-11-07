@@ -123,7 +123,7 @@
         background: white;
         border-bottom: 1px solid #64748b;
 
-        font-size: calc(var(--document-font-size) * 0.68);
+        font-size: calc(var(--document-font-size) * 0.90);
         line-height: 1.2;
     }
     .resizable-table th:not(:last-child)::after {
@@ -136,7 +136,7 @@
         cursor: col-resize;
     }
     .resizable-table td {
-        font-size: calc(var(--document-font-size) * 0.68);
+        font-size: calc(var(--document-font-size) * 0.90);
         line-height: 1.25;
     }
     .resizable-table input { font: inherit; }
@@ -158,7 +158,11 @@
     }
     .resizable-table td[data-key="qty"] input,
     .resizable-table td[data-key="price"] input,
-    .resizable-table td[data-key="fee"] input { text-align: right; }
+    .resizable-table td[data-key="fee"] input,
+    .resizable-table td[data-key="unit-price"] input,
+    .resizable-table td[data-key="vat-unit-price"] input,
+    .resizable-table td[data-key="description"] input,
+    .resizable-table td[data-key="code"] input { text-align: right;color: #263445;}
 
     .th-label {
         min-height: 20px;
