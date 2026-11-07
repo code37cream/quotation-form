@@ -5,6 +5,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ปรับใบเสนอราคา</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* ตั้งค่าฟอนต์เฉพาะตารางสินค้า */
+        #itemTable {
+            --table-font-family: inherit;
+            --table-font-size: 16px;
+
+            font-family: var(--table-font-family);
+            font-size: var(--table-font-size);
+        }
+
+        #itemTable th,
+        #itemTable td {
+            font-family: var(--table-font-family);
+            font-size: calc(var(--table-font-size) * 0.90);
+        }
+
+        #itemTable input,
+        #itemTable textarea,
+        #itemTable select {
+            font-family: var(--table-font-family);
+            font-size: var(--table-font-size);
+        }
+
+        #itemTable .th-label {
+            font-family: var(--table-font-family);
+            font-size: inherit;
+        }
+    </style>
 </head>
 <body>
     <!-- แผงควบคุม -->
@@ -25,20 +53,20 @@
         </div>
 
         <div class="control-group">
-            <label for="fontFamily">รูปแบบตัวอักษร:</label>
-            <select id="fontFamily">
-                <option value="Sarabun, 'Leelawadee UI', Arial, sans-serif">Sarabun</option>
-                <option value="Arial, sans-serif">Arial</option>
-                <option value="Tahoma, sans-serif">Tahoma</option>
-                <option value="'Leelawadee UI', Tahoma, sans-serif">Leelawadee UI</option>
-            </select>
-        </div>
+          <label for="fontFamily">รูปแบบตัวอักษรในตาราง:</label>
+          <select id="fontFamily">
+              <option value="Sarabun, 'Leelawadee UI', Arial, sans-serif">Sarabun</option>
+              <option value="Arial, sans-serif">Arial</option>
+              <option value="Tahoma, sans-serif">Tahoma</option>
+              <option value="'Leelawadee UI', Tahoma, sans-serif">Leelawadee UI</option>
+          </select>
+      </div>
 
-        <div class="control-group">
-            <label for="fontSize">ขนาดตัวอักษร:</label>
-            <input type="range" id="fontSize" min="10" max="20" value="16">
-            <span id="fontSizeVal">16 px</span>
-        </div>
+      <div class="control-group">
+          <label for="fontSize">ขนาดตัวอักษรในตาราง:</label>
+          <input type="range" id="fontSize" min="10" max="30" value="16">
+          <span id="fontSizeVal">16 px</span>
+      </div>
 
         <p class="help-text">
             คลิกข้อความเพื่อแก้ไข คลิกปุ่ม × ที่หัวตารางเพื่อลบคอลัมน์
@@ -202,7 +230,7 @@
                 <div class="signature-line"></div>
 
                 <p contenteditable="true">
-                    <strong> ชื่อพนักงานขาย</strong>
+                    <strong>ชื่อพนักงานขาย</strong>
                 </p>
 
                 <p contenteditable="true">Sales Manager</p>
