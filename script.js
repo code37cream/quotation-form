@@ -367,6 +367,105 @@
 
   });
 
+    const notesBox = document.querySelector('.quotation-notes');
+     const resetNotes = document.querySelector('#resetNotes'); // ถ้ามีปุ่มรีเซ็ตของหมายเหตุด้วย
+
+     let notesDragging = false;
+     let notesStartX = 0;
+     let notesStartY = 0;
+     let notesOffsetX = 0;
+     let notesOffsetY = 0;
+
+     notesBox.addEventListener('pointerdown', function(event) {
+         // ถ้าคลิกโดนช่องพิมพ์ข้อความ (contenteditable) หรือปุ่ม ให้ยอมให้พิมพ์/กดปุ่มตามปกติ (ไม่ลาก)
+         if (event.target.closest('[contenteditable="true"]') || event.target.closest('button')) return;
+
+         notesDragging = true;
+
+         notesStartX = event.clientX;
+         notesStartY = event.clientY;
+
+         const transform = notesBox.style.transform;
+         const match = transform.match(/translate\((-?[\d.]+)px,\s*(-?[\d.]+)px\)/);
+
+         notesOffsetX = match ? Number(match[1]) : 0;
+         notesOffsetY = match ? Number(match[2]) : 0;
+
+         notesBox.classList.add('dragging');
+         notesBox.setPointerCapture(event.pointerId);
+
+         event.preventDefault();
+     });
+
+     notesBox.addEventListener('pointermove', function(event) {
+         if (!notesDragging) return;
+
+         const moveX = event.clientX - notesStartX;
+         const moveY = event.clientY - notesStartY;
+
+         notesBox.style.transform =
+             `translate(${notesOffsetX + moveX}px, ${notesOffsetY + moveY}px)`;
+     });
+
+     function stopNotesDragging(event) {
+         if (!notesDragging) return;
+         notesDragging = false;
+         notesBox.classList.remove('dragging');
+         try {
+             notesBox.releasePointerCapture(event.pointerId);
+         } catch (e) {}
+     }
+
+     notesBox.addEventListener('pointerup', stopNotesDragging);
+     notesBox.addEventListener('pointercancel', stopNotesDragging);
+
+     /* ปุ่มรีเซ็ตตำแหน่งหมายเหตุ (ถ้ามี) */
+     if (resetNotes) {
+         resetNotes.addEventListener('click', function() {
+             notesBox.style.transform = 'translate(0px, 0px)';
+         });
+     }
+     document.addEventListener('DOMContentLoaded', function() {
+      // ฟังก์ชันจัดรูปแบบตัวเลขใส่คอมมา (รองรับทศนิยม)
+      function formatNumber(value) {
+          if (!value) return '';
+          // ลบเครื่องหมายคอมมาเก่าออกก่อน
+          let cleanValue = value.toString().replace(/,/g, '');
+          let parts = cleanValue.split('.');
+
+          // ใส่คอมมาให้เลขจำนวนเต็ม
+          parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+
+          // รวมกลับกับทศนิยม (ถ้ามี)
+          return parts.join('.');
+      }
+
+      // ฟังก์ชันดึงค่าตัวเลขดิบไปใช้งานคำนวณ
+      window.getRawValue = function(inputElement) {
+          return parseFloat(inputElement.value.replace(/,/g, '')) || 0;
+      };
+
+      const inputs = document.querySelectorAll('.formatted-number');
+
+      inputs.forEach(input => {
+          // จัดรูปแบบค่าเริ่มต้นที่มีอยู่ก่อน
+          if (input.value) {
+              input.value = formatNumber(input.value);
+          }
+
+          // เมื่อคลิกเข้ามาแก้ไข: เอาคอมมาออกเพื่อให้พิมพ์ตัวเลขง่ายๆ
+          input.addEventListener('focus', function() {
+              this.value = this.value.replace(/,/g, '');
+              this.select(); // Hilight ข้อความทั้งหมดเพื่อให้แก้สะดวก
+          });
+
+          // เมื่อคลิกออกไปช่องอื่น (Blur): จัดรูปแบบใส่คอมมากลับเข้าไป
+          input.addEventListener('blur', function() {
+              this.value = formatNumber(this.value);
+          });
+      });
+  });
+
 
 
     /* เริ่มต้นระบบ */
