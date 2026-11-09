@@ -178,23 +178,23 @@
                         </td>
 
                         <td data-key="qty">
-                            <input type="number" value="100" min="0" step="any" class="qty" aria-label="น้ำหนักต่อครั้ง">
+                            <input type="text" inputmode="decimal" value="100" class="qty formatted-number" aria-label="น้ำหนักต่อครั้ง">
                         </td>
 
                         <td data-key="price">
-                            <input type="number" value="92.75" min="0" step="any" class="price" aria-label="ราคาเม็ดพลาสติก">
+                            <input type="text" inputmode="decimal" value="92.75" class="price formatted-number" aria-label="ราคาเม็ดพลาสติก">
                         </td>
 
                         <td data-key="fee">
-                            <input type="number" value="12.32" min="0" step="any" class="fee" aria-label="ค่าผลิตและค่าแม่สี">
+                            <input type="text" inputmode="decimal" value="12.32" class="fee formatted-number" aria-label="ค่าผลิตและค่าแม่สี">
                         </td>
 
                         <td data-key="unit-price">
-                            <input type="number" value="12.32" min="0" step="any" class="unit-price" aria-label="ค่าผลิตและค่าแม่สี">
+                            <input type="text" inputmode="decimal" value="12.32" class="unit-price formatted-number" aria-label="ค่าผลิตและค่าแม่สี">
                         </td>
 
                         <td data-key="vat-unit-price">
-                            <input type="number" value="12.32" min="0" step="any" class="vat-unit-price" aria-label="ค่าผลิตและค่าแม่สี">
+                            <input type="text" inputmode="decimal" value="12.32" class="vat-unit-price formatted-number" aria-label="ค่าผลิตและค่าแม่สี">
                         </td>
 
 
@@ -210,33 +210,40 @@
         <!-- หมายเหตุและลายเซ็น -->
         <section class="bottom-area" aria-label="หมายเหตุและลายมือชื่อ">
 
-            <div class="quotation-notes">
-                <strong>หมายเหตุ:</strong>
-
-                <div id="quotationNote"
-                     class="note-content"
-                     contenteditable="true"
-                     aria-label="ข้อความหมายเหตุ"
-                     data-placeholder="พิมพ์หมายเหตุที่นี่"></div>
+        <!-- กล่องหมายเหตุ -->
+        <div class="quotation-notes">
+          <div class="quotation-controls no-print">
+          <button type="button" id="resetqnotes">
+              <img src="https://img.icons8.com/?size=100&id=78763&format=png&color=000000" style="height: 16px;" alt="qReset">
+          </button>
+          </div>
+            <strong>หมายเหตุ:</strong>
+            <div id="quotationNote"
+                 class="note-content"
+                 contenteditable="true"
+                 aria-label="ข้อความหมายเหตุ"
+                 data-placeholder="พิมพ์หมายเหตุที่นี่">
             </div>
+        </div>
 
-            <!-- ลายเซ็นด้านล่างขวา -->
-            <div class="signature-box">
-              <div class="signature-controls no-print">
-                  <button type="" id="resetSignature"><img src="https://img.icons8.com/?size=100&id=78763&format=png&color=000000" style=" height: 16px;"></button>
-              </div>
-                <p class="signature-closing" style="height: 80px;">ขอแสดงความนับถืออย่างสูง</p>
-
-                <div class="signature-line"></div>
-
-                <p contenteditable="true">
-                    <strong>ชื่อพนักงานขาย</strong>
-                </p>
-
-                <p contenteditable="true">Sales Manager</p>
-            </div>
+        <!-- ลายเซ็นด้านล่าง -->
+        <div class="signature-box">
+          <div class="signature-controls no-print">
+              <button type="button" id="resetSignature">
+                  <img src="https://img.icons8.com/?size=100&id=78763&format=png&color=000000" style="height: 16px;" alt="Reset">
+              </button>
+          </div>
+          <p class="signature-closing" style="height: 80px; font-size: 16px;">ขอแสดงความนับถืออย่างสูง
+          </p>
+          <div class="signature-line"></div>
+          <p contenteditable="true">
+              <strong>ชื่อพนักงานขาย</strong>
+          </p>
+          <p contenteditable="true">Sales Manager</p>
+        </div>
 
         </section>
+
     </main>
 
     <script src="script.js"></script>
