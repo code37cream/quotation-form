@@ -449,7 +449,7 @@
         gap: 6px;
         margin-top: 8px;
     }
-    #resetqnotes button {
+    .quotation-controls button {
         padding: 5px 9px;
         border: 1px solid #cbd5e1;
         border-radius: 5px;
