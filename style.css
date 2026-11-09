@@ -225,7 +225,7 @@
         line-height: 1.6;
     }
     .note-content {
-        width: 100%;
+        width: 80%;
         height: 28mm;
         min-width: 25mm;
         min-height: 12mm;
@@ -427,4 +427,33 @@
         .signature-box {
             cursor: default;
         }
+    }
+
+        .quotation-notes {
+        cursor: grab; /* เปลี่ยนรูปเมาส์เป็นรูปมือจับ */
+        touch-action: none; /* ป้องกันการเลื่อนหน้าจอเวลาใช้นิ้วลากบนมือถือ */
+        position: relative;
+        z-index: 10;
+    }
+
+    .quotation-notes.dragging {
+        cursor: grabbing; /* เปลี่ยนรูปเมาส์ตอนกำลังลาก */
+    }
+
+    /* ทำให้พื้นที่ข้างในยังคลิกพิมพ์และเลือกข้อความได้ปกติ */
+    .quotation-notes [contenteditable="true"] {
+        cursor: text;
+    }
+    .quotation-controls {
+      display: flex;
+        gap: 6px;
+        margin-top: 8px;
+    }
+    .quotation-controls button {
+        padding: 5px 9px;
+        border: 1px solid #cbd5e1;
+        border-radius: 5px;
+        background: #eff6ff;
+        color: #2563eb;
+        cursor: pointer;
     }
